@@ -13,3 +13,17 @@
 4. 支持一键便捷账单，删除账单
 5. 包含每日图文模块，包含美图和简短美文，设置里允许设置图片为`小姐姐或者动漫`
 6. 可以设置记账时是否开启音效
+
+####展示
+
+<div style="display:flex">
+  <img src="http://ww1.sinaimg.cn/large/006kFCeSgy1gckrferuotj30u01qgdpx.jpg" height="700" style="flex:1"/>
+  <img src="http://ww1.sinaimg.cn/large/006kFCeSgy1gckrfj70hoj30u01qgjzg.jpg" height="700" style="flex:1"/>
+  <img src="http://ww1.sinaimg.cn/large/006kFCeSgy1gckrfhbjmfj30u01qgwmi.jpg" height="700" style="flex:1"/>
+</div>
+
+<div style="display:flex">
+  <img src="http://ww1.sinaimg.cn/large/006kFCeSgy1gckrflneyqj30u01qgx0p.jpg" height="700" style="flex:1"/>
+  <img src="http://ww1.sinaimg.cn/large/006kFCeSgy1gckrfgc59nj30u01qgq6x.jpg" height="700" style="flex:1"/>
+  <img src="http://ww1.sinaimg.cn/large/006kFCeSgy1gckrfitjt5j30u01qgwjq.jpg" height="700" style="flex:1"/>
+</div>
