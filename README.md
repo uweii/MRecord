@@ -3,7 +3,7 @@
 * 使用Vue开发
 * 数据存在sqlite数据库
 * 没有任何广告，完全免费
-* MRecord.apk可以直接安装使用
+* 安装包MRecord.apk在`release`文件夹下，可以直接安装使用
 
 #### 功能
 
