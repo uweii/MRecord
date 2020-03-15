@@ -1,15 +1,15 @@
 <template>
-	<view>
+	<view style="overflow: hidden;">
 		<div class="chooseCard">
 			<uni-segmented-control :current="current" :values="items" @clickItem="onClickItem" style-type="button" active-color="#1296db"></uni-segmented-control>
 		</div>
 
 		<view class="content">
 			<view v-show="current === 0">
-				<Income @hook:mounted="childMounted" ref="income"></Income>
+				<Outcome @hook:mounted="childMounted" ref="outcome"></Outcome>
 			</view>
 			<view v-show="current === 1">
-				<Outcome @hook:mounted="childMounted" ref="outcome"></Outcome>
+				<Income @hook:mounted="childMounted" ref="income"></Income>
 			</view>
 		</view>
 	</view>
@@ -30,9 +30,9 @@
 				this.option = option
 				this.wantEdit = true
 				if (option.type == 0) { //收入界面
-					this.current = 0
-				} else { //支出界面
 					this.current = 1
+				} else { //支出界面
+					this.current = 0
 				}
 				console.log("in")
 
@@ -68,7 +68,7 @@
 		},
 		data() {
 			return {
-				items: ['记收入', '记支出'],
+				items: ['记支出','记收入'],
 				current: 0,
 				option: {}, //记录从账单编辑的内容
 				wantEdit: false //标志是否需要 传递 option给income组件，进行编辑
@@ -83,9 +83,9 @@
 			childMounted() {
 				if (this.wantEdit) {
 					if (this.current == 0) {
-						Utils.$emit('updateincome', this.option)
-					} else {
 						Utils.$emit('updateoutcome', this.option)
+					} else {
+						Utils.$emit('updateincome', this.option)
 					}
 
 				}

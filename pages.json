@@ -5,32 +5,41 @@
 			"style": {
 				"navigationBarTitleText": "本月收支"
 			}
-		},{
+		}, {
 			"path": "pages/check/Check",
 			"style": {
 				"navigationBarTitleText": "查看"
 			}
-		},{
+		}, {
 			"path": "pages/img/Img",
 			"style": {
 				"navigationBarTitleText": "一图"
 			}
-		},{
+		}, {
 			"path": "pages/profile/Profile",
 			"style": {
 				"navigationBarTitleText": "我的设置"
 			}
-		},{
+		}, {
 			"path": "pages/add/Add",
 			"style": {
 				"navigationBarTitleText": "记一笔"
 				// "navigationStyle":"custom"
 			}
-		},{
+		}, {
 			"path": "pages/about/About",
 			"style": {
 				"navigationBarTitleText": "此应用"
 				// "navigationStyle":"custom"
+			}
+		}, {
+			"path": "pages/img/ShowImg",
+			"style": {
+				//"navigationBarTitleText": "此应用"
+				// "navigationStyle":"custom"
+				"app-plus": {
+					"titleNView": false
+				}
 			}
 		}
 	],
@@ -41,47 +50,48 @@
 		"backgroundColor": "#FF6100"
 	},
 	"tabBar": {
-	    "color": "#7A7E83",
-	    "selectedColor": "#1296db",
-	    "borderStyle": "black",
-	    "backgroundColor": "#ffffff",
-		"height":"50px",
+		"color": "#7A7E83",
+		"selectedColor": "#1296db",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"height": "50px",
 		"iconWidth": "24px",
-	    "list": [{
-	        "pagePath": "pages/history/History",
-	        "iconPath": "static/image/menu/history.png",
-	        "selectedIconPath": "static/image/menu/history_active.png",
-	        "text": "足迹"
-	    }, {
-	        "pagePath": "pages/check/Check",
-	        "iconPath": "static/image/menu/check.png",
-	        "selectedIconPath": "static/image/menu/check_active.png",
-	        "text": "查看"
-	    }
-		// ,{
-	 //        "pagePath": "pages/add/Add",
-	 //        "iconPath": "static/image/menu/add1.png",
-	 //        "selectedIconPath": "static/image/menu/add1.png",
-	 //        "text": "记一笔"
-	 //    }
-		, {
-	        "pagePath": "pages/img/Img",
-	        "iconPath": "static/image/menu/img.png",
-	        "selectedIconPath": "static/image/menu/img_active.png",
-	        "text": "一图"
-	    }, {
-	        "pagePath": "pages/profile/Profile",
-	        "iconPath": "static/image/menu/profile.png",
-	        "selectedIconPath": "static/image/menu/profile_active.png",
-	        "text": "我的"
-	    }],
+		"list": [{
+				"pagePath": "pages/history/History",
+				"iconPath": "static/image/menu/history.png",
+				"selectedIconPath": "static/image/menu/history_active.png",
+				"text": "足迹"
+			}, {
+				"pagePath": "pages/check/Check",
+				"iconPath": "static/image/menu/check.png",
+				"selectedIconPath": "static/image/menu/check_active.png",
+				"text": "查看"
+			}
+			// ,{
+			//        "pagePath": "pages/add/Add",
+			//        "iconPath": "static/image/menu/add1.png",
+			//        "selectedIconPath": "static/image/menu/add1.png",
+			//        "text": "记一笔"
+			//    }
+			, {
+				"pagePath": "pages/img/Img",
+				"iconPath": "static/image/menu/img.png",
+				"selectedIconPath": "static/image/menu/img_active.png",
+				"text": "一图"
+			}, {
+				"pagePath": "pages/profile/Profile",
+				"iconPath": "static/image/menu/profile.png",
+				"selectedIconPath": "static/image/menu/profile_active.png",
+				"text": "我的"
+			}
+		],
 		"midButton": {
 			"iconPath": "static/image/menu/add1.png",
 			"text": "记一笔",
-			"height":"70px",
-			"width":"60px",
-			"iconWidth":"50px",
-			"backgroundImage":"static/image/menu/bg1.png"
+			"height": "70px",
+			"width": "60px",
+			"iconWidth": "50px",
+			"backgroundImage": "static/image/menu/bg1.png"
 		}
 	}
 }

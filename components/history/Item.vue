@@ -66,10 +66,10 @@
 				return this.isLeft ? "{display: none}" : "{}"
 			},
 			itemStyle(){
-				return {borderBottom: "4px solid " + this.colors[this.getRandom(this.colors.length)]}
+				return {borderBottom: "2px solid " + this.colors[this.getRandom(this.colors.length)]}
 			},
 			tagStyle(){
-				return {backgroundColor: this.colors[this.getRandom], opacity: 0.7, }
+				return {backgroundColor: this.colors[this.getRandom(this.colors.length)], opacity: 0.7, }
 			},
 			circleStyle(){
 				return {border: "4px solid" + this.colors[this.getRandom(this.colors.length)]}
@@ -148,7 +148,7 @@
 		//卡片内 tag的样式
 		border-radius: 5px;
 		padding: 1px;
-		background-color: #007947;
+		// background-color: #007947;
 	}
 	
 	.itemclass{

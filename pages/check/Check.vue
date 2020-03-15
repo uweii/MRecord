@@ -1,7 +1,7 @@
 <template>
 	<view class="page">
 		<div class="chooseCard">
-			<uni-segmented-control :current="current" :values="items" @clickItem="onClickItem" style-type="text" active-color="#1296db"></uni-segmented-control>
+			<uni-segmented-control :current="current" :values="items" @clickItem="onClickItem" style-type="text" class="tab" active-color="#8d967e"></uni-segmented-control>
 		</div>
 		
 		<view class="content">
@@ -57,5 +57,9 @@
 .chooseCard {
 		width: 100%;
 		margin-top: 5px;
+	}
+	.tab{
+		font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+		font-size: small;
 	}
 </style>

@@ -1,9 +1,7 @@
 <template>
-	<view style="width: 100%;height: 100%;background-color: #eeeeee;">
+	<view style="width: 100%;height: 100%;background-color: #eeeeee;overflow: hidden;">
 		<view class="container" @touchstart="touchstart" @touchend="touchend">
-			<view class="img">
-				<image mode="scaleToFill"  :fade-show="true" style="height: 100%;width: 100%;" :src="imgurl"></image>
-			</view>
+			<image mode="aspectFill" :fade-show="true" @tap="openPic" class="img" :src="imgurl"></image>
 			<view class="text">
 				<view class="content">{{essay.content}}</view>
 				<view class="author">作者|{{essay.author}}</view>
@@ -13,20 +11,14 @@
 				<image class="logo" src="../../static/image/history/sun.png"></image>
 			</view>
 		</view>
-		<loading
-		    ref="loading"
-		    :custom="false"
-		    :shadeClick="false"
-		    :type="2"
-					 height="80px"
-					 width="110px"
-		   >
-		        <!-- <view class="test">自定义</view> -->
+		<loading ref="loading" :custom="false" :shadeClick="false" :type="2" height="80px" width="110px">
+			<!-- <view class="test">自定义</view> -->
 		</loading>
 	</view>
 </template>
 
 <script>
+	import uniPopup from "@/components/uni-popup/uni-popup.vue"
 	const girlUrl = 'http://api.btstu.cn/sjbz/?lx=m_meizi'
 	const cartoon = 'http://api.btstu.cn/sjbz/?lx=m_dongman'
 	const sentence = 'https://api.ooopn.com/yan/api.php?type=json'
@@ -34,26 +26,29 @@
 	import Global from '../../global.js'
 	export default {
 		components: {
+			uniPopup,
 			loading
 		},
 		name: "Img",
 		onShow() {
 			console.log("img on show")
-			if(Global.getImgType()==0){
+			if (Global.getImgType() == 0) {
 				this.originUrl = girlUrl
-			}else{
+			} else {
 				this.originUrl = cartoon
 			}
 			console.log(this.originUrl)
-		}
-		,
+		},
 		mounted() {
 			this.changeurl()
+		},
+		onBackPress() {
+
 		},
 		data() {
 			return {
 				imgurl: '',
-				pos: { 
+				pos: {
 					x: 0,
 					y: 0
 				},
@@ -67,6 +62,15 @@
 			}
 		},
 		methods: {
+			openPic() {
+				uni.previewImage({
+					urls: [this.imgurl],
+					 
+				});
+				/* uni.navigateTo({ 
+					url: '../img/ShowImg?src=' + this.imgurl
+				}) */
+			},
 			request(myurl) {
 				return uni.request({
 					url: myurl
@@ -82,10 +86,14 @@
 				if (subX > 50 || subX < -50) {
 					console.log("右滑动")
 					this.changeurl()
-					
+
 				}
 			},
 			changeurl() {
+				this.$refs.loading.open()
+				setTimeout(() => {
+					this.$refs.loading.close()
+				}, 1000)
 				console.log(this.secondurl)
 				if (this.secondurl != '') {
 					console.log("2222222")
@@ -95,11 +103,12 @@
 				} else {
 					console.log("1111111")
 					this.$refs.loading.open()
-					setTimeout(()=>{
+					/* setTimeout(() => {
 						this.$refs.loading.close()
-					},1000)
+					}, 1000) */
 					this.request(this.originUrl).then(data => {
 						var [error, res] = data
+						console.log("==================" + error)
 						if (error != null) {
 							uni.showToast({
 								title: '读取失败',
@@ -108,14 +117,15 @@
 							})
 							return
 						}
-						this.backup()
+						//this.backup()
 						console.log(res)
 						this.imgurl = res.header.Location
-						
+
 					});
 				}
 				this.request(sentence).then(data => {
 					var [error, res] = data
+					console.log("+++++++++++++++++" + error)
 					if (error != null) {
 						uni.showToast({
 							title: '读取失败',
@@ -144,18 +154,20 @@
 					}
 					let url = res.header.Location
 					console.log(url)
-					new Promise((resolve,reject)=>{
+					new Promise((resolve, reject) => {
 						uni.getImageInfo({
 							src: url,
-							success:(res)=>{
+							success: (res) => {
 								console.log(res.path)
 								resolve(res.path)
 							}
-							})
-						}).then((res)=>{this.secondurl=res})
-					
+						})
+					}).then((res) => {
+						this.secondurl = url
+					})
+
 				});
-				
+
 			},
 		}
 	}
@@ -170,13 +182,15 @@
 		overflow: hidden;
 		display: flex;
 		flex-direction: column;
+		top: 2%;
 		position: relative;
-		top: 50%;
-		transform: translateY(-52%);
+		/* top: 50%; */
+		/* transform: translateY(-52%); */
 	}
 
 	.img {
-		flex: 2;
+		flex: 2.5;
+		width: 100%;
 	}
 
 	.text {
@@ -186,29 +200,29 @@
 
 	.content {
 		color: #64646b;
-		margin-top: 30px;
-		font-size: 1em;
+		margin-top: 10px;
+		font-size: 0.9em;
 		padding-left: 5px;
 	}
 
 	.author {
 		color: #b6b6b6;
 		font-size: small;
-		margin-top: 10px;
+		margin-top: 5px;
 		padding-left: 5px;
 	}
 
 	.catname {
-		margin-top: 10px;
+		margin-top: 5px;
 		font-size: 0.8em;
 		padding-left: 5px;
 	}
 
 	.logo {
-		position: absolute;
+		position: fixed;
 		right: 10%;
-		bottom: 5%;
-		height: 100px;
-		width: 100px;
+		bottom: 10%;
+		height: 80px;
+		width: 80px;
 	}
 </style>

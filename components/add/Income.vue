@@ -18,13 +18,13 @@
 				<text class="fixedPreFont">分类</text>
 				<text style="margin-left: 15px; float: left;" class="fontSize">{{choosedTag}}</text>
 			</span>
-			<uni-popup ref="popup" type="center" :maskClick=false>
+			<uni-popup ref="popup" type="center" :maskClick=true>
 				<div class="pop">
 					<div class="head">
 						<h4>选择收入类型</h4>
 					</div>
 					<hr />
-					<scroll-view scroll-y="true" style="height: 350px;" :show-scrollbar="true" enable-back-to-top="true">
+					<scroll-view scroll-y="true" style="height: 0px;flex: 4;" :show-scrollbar="true" enable-back-to-top="true">
 						<div class="choice">
 							<div class="gridBox">
 								<div class="gridItem" :class="{activeStyle: item.id == temp}" v-for="(item,i) in froms" :key="item.id" @click="itemClick(item.id)">{{item.name}}
@@ -32,12 +32,7 @@
 							</div>
 						</div>
 					</scroll-view>
-					<!-- <div class="choice">
-						<div class="gridBox">
-							<div class="gridItem" :class="{activeStyle: item.id == temp}" v-for="(item,i) in froms" :key="item.id" @click="itemClick(item.id)">{{item.name}}
-							</div>
-						</div>
-					</div> -->
+		
 					<view style="height: 1px;background: #808080;		" />
 					<div class="foot">
 						<div style="flex:1;display: -webkit-box;-webkit-box-align: center;-webkit-box-pack: center;">
@@ -47,33 +42,40 @@
 								<button @click="create" value="创建" style="height: 30px;vertical-align: middle;line-height: 30px;margin-right: 5px;">创建</button>
 							</div>
 						</div>
-						<div style="width: 50%;margin: 0 auto;clear: both; flex: 1;">
-							<button style="float: left;" @click="close">取消</button>
-							<button class="confirmBtnStyle" @click="confirm" style="float: right;">确定</button>
-						</div>
 					</div>
 				</div>
 			</uni-popup>
 		</div>
 		<view style="height: 1px;background: #808080;		margin-left: 10%;" />
-		<div class="container">
+		<div class="container" v-if="showMoon">
 			<div class="commonInput moonStyle">
 				<span class="fixedPreFont">心情</span>
 				<div style="float: left; margin-left: 13px;display: flex; margin-top: auto;margin-bottom: auto;">
 					<image v-for="i in 5" :src="judge(i)" @click="star(i)" :key="i" style="width: 30px;height: 30px;"></image>
 				</div>
 				<image style="float: right;margin-top: auto;margin-bottom: auto;width: 30px;height: 30px; margin-left: 10px; " :src="moonImg"></image>
+				<image src="../../static/image/alternative/cancle.png" v-if="showMoon" @click="toShowMoon" style="width: 30px;height: 30px;position: absolute; right: 10px;margin-top: 10px;" mode="aspectFill"></image>
 			</div>
+			<view style="height: 1px;background: #808080;" />
 		</div>
-		<view style="height: 1px;background: #808080;		margin-left: 10%;" />
-		<div class="container">
+		
+		<div class="container" v-if="showRemark">
 			<div class="commonInput remarksStyle">
 				<text class="fixedPreFont">备注</text>
 				<input class="fontSize" style="margin-left: 15px;margin-top: auto;margin-bottom:auto ;" v-model="remark" type="text" />
+				<image src="../../static/image/alternative/cancle.png" v-if="showRemark" @click="toShowRemark" style="width: 30px;height: 30px;position: absolute; right: 10px;margin-top: 10px;" mode="aspectFill"></image>
 			</div>
+			<view style="height: 1px;background: #808080;" />
 		</div>
-		<view style="height: 1px;background: #808080;		margin-left: 10%;" />
-		<div style="margin-top: 20px;width: 80%;display: flex;margin-left: auto;margin-right: auto;">
+		
+		<div class="container">
+			<view style="float: left;">
+				<image src="../../static/image/alternative/add_moon.png" v-if="!showMoon" @click="toShowMoon" style="width: 30px;height: 30px;" mode="aspectFill"></image>
+				<image src="../../static/image/alternative/add_remark.png" v-if="!showRemark" @click="toShowRemark" style="width: 30px;height: 30px; margin-left: 10px;"
+				 mode="aspectFit"></image>
+			</view>
+		</div>
+		<div style="clear: both; margin-top: 20px;width: 80%;display: flex;margin-left: auto;margin-right: auto;">
 			<button class="normalBtn" @click="fexit">退出</button>
 			<button @click="fclear" class="normalBtn clear" :disabled="disableStyle" :class="{disableStyle: btnClearDisable}">清空</button>
 			<button @click="fsave" class="normalBtn saveBtn" :disabled="btnSaveDisable" :class="{disableStyle: btnSaveDisable}">保存</button>
@@ -109,7 +111,7 @@
 
 	export default {
 		mounted() {
-			console.log('===============mounted')
+			console.log('Income===============mounted')
 			Utils.$on('updateincome', (option) => {
 				console.log("init=========")
 				this.money = option.money
@@ -119,7 +121,10 @@
 				this.remark = option.remarks
 				this.isUpdate = true
 				this.recordid = option.id
-			})
+			});
+			const  dd = new Date()
+			this.date = dd.format("yyyy-MM-dd hh:mm:ss")
+			console.log(this.date)
 		},
 		data() {
 			return {
@@ -135,7 +140,9 @@
 				money: '',
 				isPopOpen: false,
 				isUpdate: false, //标志是否是更新记录,
-				recordid: 0 //标志数据索引
+				recordid: 0 ,//标志数据索引
+				showMoon: false, //显示心情
+				showRemark: false, //显示备注
 			}
 		},
 		computed: {
@@ -154,7 +161,7 @@
 				return false
 			},
 			btnSaveDisable() {
-				if (this.money && this.date && this.choosedTag && this.starIndex != 0) {
+				if (this.money && this.date && this.choosedTag ) {
 					return false
 				}
 				return true
@@ -162,6 +169,12 @@
 		},
 
 		methods: {
+			toShowMoon() {
+				this.showMoon = !this.showMoon
+			},
+			toShowRemark() {
+				this.showRemark = !this.showRemark
+			},
 			isTimeOpen(){
 				return this.$refs.dateTime.showPicker
 			},
@@ -216,6 +229,13 @@
 			itemClick(id) {
 				console.log(id)
 				this.temp = id
+				for (let s of tags) {
+					if (s.id == this.temp) {
+						this.choosedTag = s.name
+						this.choosed = this.temp
+					}
+				}
+				this.close()
 			},
 			star(i) {
 				// console.log(i)
@@ -232,6 +252,11 @@
 						for (let tag of tags) {
 							if (tag.name == newTag) {
 								console.log("已存在！！！")
+								uni.showToast({
+									duration:1000,
+									title:'标签已存在',
+									icon:'none'
+								})
 								return
 							}
 						}
@@ -454,12 +479,12 @@
 		background-color: #FFFFFF;
 		top: 50%;
 		left: 50%;
-		width: 80%;
-		height: 70%;
+		width: 75%;
+		height: 60%;
 		position: fixed;
 		border-radius: 10px;
 		overflow: auto;
-		transform: translateX(-50%) translateY(-50%);
+		transform:translateX(-50%) translateY(-65%);
 		flex-direction: column;
 		display: flex;
 	}
@@ -492,7 +517,7 @@
 
 	.foot {
 		margin-top: 5px;
-		flex: 3;
+		flex: 0.7;
 		width: 100%;
 		overflow-y: hidden;
 		display: flex;
@@ -500,7 +525,7 @@
 	}
 
 	.head {
-		flex: 1;
+		flex: 0.7;
 		display: -webkit-box;
 		align-items: center;
 		/* 垂直居中 */

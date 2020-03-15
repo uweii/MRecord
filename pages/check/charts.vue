@@ -1,30 +1,30 @@
 <template>
 	<view style="overflow: scroll;">
 		<view style="display: flex; padding-top: 5px;padding-left: 10px;">
-			<button style="flex: 1;" size="mini" @tap="showdate" type="primary">选择过滤条件</button>
+			<button style="flex: 1;background-color: #95bdb3;" size="mini" @tap="showdate"  type="primary">选择过滤条件</button>
 			<view style="flex: 2;" class="qiun-title-dot-light-outcome">{{condition}}</view>
 		</view>
 		<view style="height: 1px;background: #808080;margin-top: 5px;" />
 		<view class="analysisyear" v-if="reload">
 			<view class="incomeoutcome" style="width: 90%;margin: 0 auto; margin-top: 5px;">
-				<t-table @change="change">
+				<t-table>
 					<t-tr>
 						<t-th>总收入</t-th>
 						<t-th>总支出</t-th>
 						<t-th>净收入</t-th>
 					</t-tr>
 					<t-tr>
-						<t-td>{{ allincome}}</t-td>
-						<t-td>{{ alloutcome }}</t-td>
+						<t-td>{{ allincome.toFixed(2)}}</t-td>
+						<t-td>{{ alloutcome.toFixed(2) }}</t-td>
 						<t-td>{{ (allincome-alloutcome).toFixed(2)}} </t-td>
 					</t-tr>
 				</t-table>
 				<view style="text-align: center;line-height: 20px;font-size: small;">{{condition}}期间收支表</view>
 			</view>
 			<view class="year" v-if="currentcondition==0">
-				<histogram-chart height="400" :dataAs="histogramData2" canvasId="ht1" labelKey="label" valueKey="value" :yAxisAs="{
+				<histogram-chart v-bind:height="400" :dataAs="histogramData2" canvasId="ht1" labelKey="label" valueKey="value" :yAxisAs="{
 			            formatter: {
-			                type: 'number' //type:number percent String,额外参数:fixed:NUmber,name:String
+			                type: 'number', //type:number percent String,额外参数:fixed:NUmber,name:String
 			            }
 			        }" />
 				<view style="text-align: center;line-height: 20px;font-size: small;">{{condition}}年收支柱状图</view>
@@ -38,8 +38,8 @@
 						</view>
 					</label>
 				</radio-group>
-					<RingChart key="0" v-if="current == 0 " :dataAs="circle1" height="450"></RingChart>
-					<RingChart key="1" v-if="current == 1 " :dataAs="circle2" height="450"></RingChart>
+					<RingChart key="0" v-if="current == 0 " :dataAs="circle1" v-bind:height="450"></RingChart>
+					<RingChart key="1" v-if="current == 1 " :dataAs="circle2" v-bind:height="450"></RingChart>
 			</view>
 		</view>
 
@@ -181,18 +181,20 @@
 								if (income.length > 0) {
 									let sum = 0
 									for (let i of income) {
-										sum += parseFloat(i.money)
+										console.log(typeof i.money + "====" + Number(i.money).toFixed(2))
+										sum += Number(i.money)
 									}
-									this.income12.push(sum)
+									this.income12.push(Number(sum.toFixed(2)))
 								} else {
 									this.income12.push(0)
 								}
 								if (outcome.length > 0) {
 									let sum = 0
 									for (let i of outcome) {
-										sum += parseFloat(i.money)
+										console.log(typeof i.money + "====" + Number(i.money).toFixed(2))
+										sum += Number(i.money)
 									}
-									this.outcome12.push(sum)
+									this.outcome12.push(Number(sum.toFixed(2)))
 								} else {
 									this.outcome12.push(0)
 								}
@@ -201,14 +203,15 @@
 								this.outcome12.push(0)
 							}
 						}
+					
 						this.histogramData2.value[0].data = this.income12
 						this.histogramData2.value[1].data = this.outcome12
 
 						for (let value of this.income12) {
-							this.allincome += value
+							this.allincome += (value)
 						}
 						for (let value of this.outcome12) {
-							this.alloutcome += value
+							this.alloutcome += (value)
 						}
 						console.log(this.income12)
 						console.log(this.outcome12)
@@ -385,7 +388,7 @@
 	}
 
 	.qiun-title-dot-light-outcome {
-		border-left: 10upx solid #007947;
+		border-left: 10upx solid #95bdb3;
 		padding-left: 10upx;
 		font-size: 32upx;
 		color: #000000;

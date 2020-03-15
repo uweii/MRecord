@@ -1,27 +1,27 @@
 <template>
 	<view>
 		<view style="display: flex; padding-top: 5px;padding-left: 10px;">
-			<button style="flex: 1;" size="mini" @tap="showdate" type="primary">选择过滤条件</button>
+			<button style="flex: 1;background-color: #95bdb3;" size="mini" @tap="showdate" type="primary">选择过滤条件</button>
 			<view style="flex: 2; " class="qiun-title-dot-light-outcome">{{condition}}</view>
 		</view>
 		<view style="height: 1px;background: #808080;margin-top: 5px;" />
 		<view style="text-align: center;line-height: 20px;font-size: small;">{{condition}}期间收支表</view>
 		<view class="incomeoutcome" style="width: 90%;margin: 0 auto; margin-top: 5px;">
-			<t-table @change="change">
+			<t-table>
 				<t-tr>
 					<t-th>总收入</t-th>
 					<t-th>总支出</t-th>
 					<t-th>净收入</t-th>
 				</t-tr>
 				<t-tr>
-					<t-td>{{ allincome}}</t-td>
-					<t-td>{{ alloutcome }}</t-td>
+					<t-td>{{ allincome.toFixed(2)}}</t-td>
+					<t-td>{{ alloutcome.toFixed(2) }}</t-td>
 					<t-td>{{ (allincome-alloutcome).toFixed(2)}} </t-td>
 				</t-tr>
 			</t-table>
 		</view>
 		<view style="margin: 10px;">
-			<t-table @change="change">
+			<t-table>
 				<t-tr>
 					<t-th>序号</t-th>
 					<t-th>金额</t-th>
@@ -194,7 +194,7 @@
 
 <style>
 	.qiun-title-dot-light-outcome {
-		border-left: 10upx solid #007947;
+		border-left: 10upx solid #95bdb3;
 		padding-left: 10upx;
 		font-size: 32upx;
 		color: #000000;
