@@ -11,6 +11,10 @@
 			<view v-show="current === 1">
 				<Outcome @hook:mounted="childMounted" ref="outcome"></Outcome>
 			</view>
+
+					<view v-show="current === 2">
+            				<Outcome @hook:mounted="childMounted" ref="outcome"></Outcome>
+            			</view>
 		</view>
 	</view>
 </template>
