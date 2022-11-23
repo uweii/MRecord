@@ -12,10 +12,12 @@
 					<t-th>总收入</t-th>
 					<t-th>总支出</t-th>
 					<t-th>净收入</t-th>
+					<t-th>净收入</t-th>
 				</t-tr>
 				<t-tr>
 					<t-td>{{ allincome}}</t-td>
 					<t-td>{{ alloutcome }}</t-td>
+					<t-td>{{ (allincome-alloutcome).toFixed(2)}} </t-td>
 					<t-td>{{ (allincome-alloutcome).toFixed(2)}} </t-td>
 				</t-tr>
 			</t-table>
