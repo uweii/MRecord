@@ -35,7 +35,7 @@
 		},
 		data() {
 			return {
-				loadMoreText: "加载更多"
+				loadMoreText: "加载更多..."
 			}
 		},
 		methods: {
