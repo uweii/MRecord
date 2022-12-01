@@ -18,7 +18,7 @@
 		    :custom="false"
 		    :shadeClick="false"
 		    :type="2"
-					 height="81px"
+					 height="84px"
 					 width="110px"
 		   >
 		        <!-- <view class="test">自定义</view> -->
