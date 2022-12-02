@@ -13,6 +13,7 @@
 		<view style="margin-top: 11px;">
 			<uni-list>
 			    <uni-list-item title="项目开源" note="代码仓库,反馈bug,提建议" @click="aboutMe"  ></uni-list-item>
+			    <uni-list-item title="项目开源" note="代码仓库,反馈bug,提建议" @click="aboutMe"  ></uni-list-item>
 			</uni-list>
 		</view>
 		
